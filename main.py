@@ -1,13 +1,14 @@
 # Hand Tracking com MediaPipe 
 
 import cv2 #biblioteca para captura de vídeo e manipulação de imagens
-import mediapipe as mp #biblioteca para detecção e rastreamento de mãos
+import mediapipe as mp
+from detector.gesture import only_index #Importa a função only_index do módulo geture localizado na pasta detector, para verificar se apenas o dedo indicador está levantado.
 
 # Inicialização
 mp_hands = mp.solutions.hands
 
 hands = mp_hands.Hands( #Configurações para detecção de mãos, biblioteca MediaPipe
-    max_num_hands=2,
+    max_num_hands=1,
     min_detection_confidence=0.7, 
     min_tracking_confidence=0.7 
 )
@@ -36,9 +37,14 @@ while True:
             mp_draw.draw_landmarks(
                 img,
                 handLms,
-                mp_hands.HAND_CONNECTIONS
+                mp_hands.HAND_CONNECTIONS    
+                               
             )
-
+        hand = results.multi_hand_landmarks[0]
+        lm = hand.landmark
+        only_index(lm)
+        
+    
     cv2.imshow("Hand Tracker", img)
 
     if cv2.waitKey(1) & 0xFF == 27: #27 é o código ASCII para a tecla "Esc".
