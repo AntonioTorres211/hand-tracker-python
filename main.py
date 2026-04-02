@@ -2,7 +2,7 @@
 
 import cv2 #biblioteca para captura de vídeo e manipulação de imagens
 import mediapipe as mp
-from detector.gesture import only_index #Importa a função only_index do módulo geture localizado na pasta detector, para verificar se apenas o dedo indicador está levantado.
+from detector.gesture import gestos#Importa a função only_index do módulo geture localizado na pasta detector, para verificar se apenas o dedo indicador está levantado.
 
 # Inicialização
 mp_hands = mp.solutions.hands
@@ -42,7 +42,7 @@ while True:
             )
         hand = results.multi_hand_landmarks[0]
         lm = hand.landmark
-        only_index(lm)
+        gestos(lm)
         
     
     cv2.imshow("Hand Tracker", img)
