@@ -5,6 +5,7 @@ import mediapipe as mp
 from detector.gesture import gestos#Importa a função only_index do módulo geture localizado na pasta detector, para verificar se apenas o dedo indicador está levantado.
 
 # Inicialização
+validacao = "" 
 mp_hands = mp.solutions.hands
 
 hands = mp_hands.Hands( #Configurações para detecção de mãos, biblioteca MediaPipe
@@ -42,7 +43,7 @@ while True:
             )
         hand = results.multi_hand_landmarks[0]
         lm = hand.landmark
-        gestos(lm)
+        validacao = gestos(lm, validacao)
         
     
     cv2.imshow("Hand Tracker", img)
