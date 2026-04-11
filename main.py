@@ -2,6 +2,7 @@
 
 import cv2 #biblioteca para captura de vídeo e manipulação de imagens
 import mediapipe as mp
+from controller import all_fingers, index_middle, index_middle_ring, onlyindex
 from detector.gesture import gestos#Importa a função only_index do módulo geture localizado na pasta detector, para verificar se apenas o dedo indicador está levantado.
 
 # Inicialização
@@ -18,7 +19,7 @@ mp_draw = mp.solutions.drawing_utils
 
 # Webcam
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) 
-
+gestos_anterior = None
 while True:
     success, img = cap.read()
 
@@ -43,9 +44,19 @@ while True:
             )
         hand = results.multi_hand_landmarks[0]
         lm = hand.landmark
-        validacao = gestos(lm, validacao)
+        gesto_atual = gestos(lm)
         
-    
+        if gesto_atual != gestos_anterior:
+            if gesto_atual == "onlyindex":
+                onlyindex()
+            elif gesto_atual == "index_middle":
+                index_middle()
+            elif gesto_atual == "index_middle_ring":
+                index_middle_ring()
+            elif gesto_atual == "all_fingers":
+                all_fingers()
+            gestos_anterior = gesto_atual
+
     cv2.imshow("Hand Tracker", img)
 
     if cv2.waitKey(1) & 0xFF == 27: #27 é o código ASCII para a tecla "Esc".
