@@ -6,12 +6,19 @@ def onlyindex():
     pyautogui.press("k")
 
 def index_middle():
-    pyautogui.hotkey('shift', '.')
+    for i in range(2):
+        pyautogui.hotkey('shift', '.')
 
 def index_middle_ring():
-    pyautogui.hotkey('shift', ',')
-
+    for i in range(2):
+        pyautogui.hotkey('shift', ',')
+        
 def all_fingers():
     pyautogui.press('f')
-
+    
+def diminuir_volume():
+    pyautogui.press('down')  
+    
+def aumentar_volume():
+    pyautogui.press('up')
     

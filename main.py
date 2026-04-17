@@ -2,7 +2,7 @@
 
 import cv2 #biblioteca para captura de vídeo e manipulação de imagens
 import mediapipe as mp
-from controller import all_fingers, index_middle, index_middle_ring, onlyindex
+from controller import all_fingers, aumentar_volume, diminuir_volume, index_middle, index_middle_ring, onlyindex
 from detector.gesture import gestos#Importa a função only_index do módulo geture localizado na pasta detector, para verificar se apenas o dedo indicador está levantado.
 
 # Inicialização
@@ -55,6 +55,12 @@ while True:
                 index_middle_ring()
             elif gesto_atual == "all_fingers":
                 all_fingers()
+            elif gesto_atual == "diminuir_volume":
+               diminuir_volume()
+            #    wait_time = 0.3
+            elif gesto_atual == "aumentar_volume":
+                aumentar_volume()
+            #    wait_time = 0.3
             gestos_anterior = gesto_atual
 
     cv2.imshow("Hand Tracker", img)
